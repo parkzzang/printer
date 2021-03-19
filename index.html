@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width">
+        <meta name=”description” content=”프린터기가 출력할 페이지를 역수 또는 홀짝으로 지정하는 기능이 없을 때 사용하면 좋은 웹사이트입니다.” />
+        <meta name=”keywords” content=”페이지번호, 페이지, 페이지번호 생성기, 인쇄″ />
+        <title>페이지번호 생성기</title>
+        <link rel="icon" type="image/png" a href="https://image.flaticon.com/icons/png/512/129/129468.png">
+        <script data-ad-client="ca-pub-7369433253939972" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0GZ913VNRM"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0GZ913VNRM');
+        </script>
+    </head>
+
+    <body style="background:#ffe6e6;">
+
+      <div>
+        <h1>페이지번호 생성기</h1>
+        <h2>Page Number Generator for Printer</h2>
+      </div>
+
+      <div style="background:#ffe8cf;">
+        <br><br>
+        <text>1. 먼저 총 페이지 수를 입력하세요. &nbsp</text>
+        <input id='number' type='number' min='1' step='1'onchange='printEvenNumber()'/>
+        <input type='submit'>
+        <br>
+
+        <div>
+          <br>
+          <text>2. 결과를 복사해서 사용하세요.</text>
+          <div>
+            <text>짝수&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp</text>
+            <text id='evenResult'></text>
+            <input type="button" class="copyEven" value="복사" onclick="buttonHandler(this);">
+          </div>
+          <div>
+            <text>홀수&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp</text>
+            <text id='oddResult'></text>
+            <input type="button" class="copyOdd" value="복사" onclick="buttonHandler(this);">
+          </div>
+          <br>
+          <div>
+            <text>짝수 역순&nbsp&nbsp : &nbsp</text>
+            <text id='evenReverseResult'></text>
+            <input type="button" class="copyEvenReverse" value="복사" onclick="buttonHandler(this);">
+          </div>
+          <div>
+            <text>홀수 역순&nbsp&nbsp : &nbsp</text>
+            <text id='oddReverseResult'></text>
+            <input type="button" class="copyOddReverse" value="복사" onclick="buttonHandler(this);">
+          </div>
+          <br>
+          <div>
+            <text>역순&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp</text>
+            <text id='reverseResult'></text>
+            <input type="button" class="copyReverse" value="복사" onclick="buttonHandler(this);">
+          </div>
+          <br><br>
+        </div>
+
+        <div style="background:#e6cfe8;">
+            <text><a href="https://m.blog.naver.com/parkzzang052/222276191976" target="_blank">소개 및 문의</a> / 역순 인쇄, 홀수·짝수 인쇄가 안 돼서 직접 페이지번호를 쳐 넣어야 할 때 쓰세요. / Icon from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a></text>
+        </div>
+
+      </div>
+    </body>
+
+</html>
+
+<script type="text/javascript">
+
+  function printEvenNumber() {
+    var evenStr = '';
+    var oddStr = '';
+    var evenReverseStr = '';
+    var oddReverseStr = '';
+    var reverseStr = '';
+
+    const number = document.getElementById('number').value;
+    even = number/2;
+
+    if(!Number.isInteger(2*even) || even <= 0) {
+      alert("유효한 숫자를 입력하세요.");
+      var input = document.getElementById('number'); input.value = null;
+      return;
+    }
+
+    //짝수
+    for(i=1; i<=even; i+=1) {
+      if(i==even || number-1==2*i) evenStr += 2*i;
+      else evenStr += 2*i + ', ';
+    }
+
+    //홀수
+    for(i=1; i<=even; i+=1) {
+      if(i==even) oddStr += 2*i-1;
+      else oddStr += 2*i-1 + ', ';
+    }
+    if(number%2==1) oddStr += number;
+
+    //짝수 역순
+    if(number%2==1) for(i=even-0.5; i>=1; i-=1) {
+      if(i==1) evenReverseStr += 2*i;
+      else evenReverseStr += 2*i + ', ';
+    }
+    else for(i=even; i>=1; i-=1) {
+      if(i==1) evenReverseStr += 2*i;
+      else evenReverseStr += 2*i + ', ';
+    }
+
+    //홀수 역순
+    if(number%2==1) for(i=even+0.5; i>=1; i-=1) {
+      if(i==1) oddReverseStr += 2*i-1;
+      else oddReverseStr += 2*i-1 + ', ';
+    }
+    else for(i=even; i>=1; i-=1) {
+      if(i==1) oddReverseStr += 2*i-1;
+      else oddReverseStr += 2*i-1 + ', ';
+    }
+      
+    //역순
+    for(i=number; i>=2; i-=1) {
+       reverseStr += i+', ';
+    } reverseStr += 1;
+
+    document.getElementById("evenResult").innerText = evenStr;
+    document.getElementById("oddResult").innerText = oddStr;
+    document.getElementById("evenReverseResult").innerText = evenReverseStr;
+    document.getElementById("oddReverseResult").innerText = oddReverseStr;
+    document.getElementById("reverseResult").innerText = reverseStr;
+  }
+
+  document.querySelector(".copyEven").addEventListener("click", function(){
+  var tempElem = document.createElement('textarea'); tempElem.value = document.getElementById('evenResult').innerText; document.body.appendChild(tempElem);
+  tempElem.select(); document.execCommand("copy"); document.body.removeChild(tempElem);});
+
+  document.querySelector(".copyOdd").addEventListener("click", function(){
+  var tempElem = document.createElement('textarea'); tempElem.value = document.getElementById('oddResult').innerText;
+  document.body.appendChild(tempElem);
+  tempElem.select(); document.execCommand("copy"); document.body.removeChild(tempElem);});
+
+  document.querySelector(".copyEvenReverse").addEventListener("click", function(){
+  var tempElem = document.createElement('textarea'); tempElem.value = document.getElementById('evenReverseResult').innerText;
+  document.body.appendChild(tempElem);
+  tempElem.select(); document.execCommand("copy"); document.body.removeChild(tempElem);});
+
+  document.querySelector(".copyOddReverse").addEventListener("click", function(){
+  var tempElem = document.createElement('textarea'); tempElem.value = document.getElementById('oddReverseResult').innerText;
+  document.body.appendChild(tempElem);
+  tempElem.select(); document.execCommand("copy"); document.body.removeChild(tempElem);});
+    
+  document.querySelector(".copyReverse").addEventListener("click", function(){
+  var tempElem = document.createElement('textarea'); tempElem.value = document.getElementById('reverseResult').innerText;
+  document.body.appendChild(tempElem);
+  tempElem.select(); document.execCommand("copy"); document.body.removeChild(tempElem);});
+
+  function buttonHandler(b) {
+    if (b.value === '복사') {
+      b.value = '복사 완료!';
+    }
+    else if(b.value === '복사 완료!') {
+      b.value = '또 복사 완료!';
+    }
+    else {
+      b.value = '복사';
+    }
+  }
+</script>
